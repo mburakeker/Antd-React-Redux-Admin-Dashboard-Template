@@ -15,11 +15,12 @@ import {
   DashboardOutlined,
   ShopOutlined,
   TeamOutlined,
+  UserOutlined,
   UploadOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 class Root extends React.Component {
 
   render() {
@@ -78,6 +79,7 @@ class Root extends React.Component {
                 </div>
               </Content>
             </Layout>
+            
           </Layout>
           </Router>
     );
