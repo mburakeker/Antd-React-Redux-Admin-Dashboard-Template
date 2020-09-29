@@ -3,8 +3,9 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux';
 import {login} from '../../reducers/userSlice';
 import React, {Component} from 'react';
+import {Login} from '../../api/user';
 import './Login.css';
-class NormalLoginForm extends Component {
+class LoginPage extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -24,7 +25,13 @@ class NormalLoginForm extends Component {
     this.setState({password:value});
   }
   submitLogin(){
-    
+      const {username,password} = this.state;
+      this.props.loginDispatch(username,'token');
+        // Login({username:username, password:password}).then((response)=>{
+        //     if(response.data){
+        //         this.props.loginDispatch(username,'token');
+        //     }
+        // });
   }
   render(){
     return (
@@ -65,7 +72,7 @@ class NormalLoginForm extends Component {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                    <Button onSubmit={this.submitLogin} type="primary" htmlType="submit" className="login-form-button">
                     Log in
                     </Button>
                     Or <a href="">register now!</a>
@@ -78,10 +85,10 @@ class NormalLoginForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    login: (obj) => dispatch(login(obj)),
+    loginDispatch: (username,token) => dispatch(login({username:username,token:token})),
 });
   
 export default connect(
     null,
     mapDispatchToProps,
-  )(NormalLoginForm);
+  )(LoginPage);

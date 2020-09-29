@@ -5,7 +5,7 @@ import App from './pages/App/App';
 import Home from './pages/Home/Home';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
-import NormalLoginForm from './pages/Login/Login';
+import LoginPage from './pages/Login/Login';
 import 'antd/dist/antd.css';
 import './index.css';
 // Import custom components
@@ -34,7 +34,7 @@ class Root extends React.Component {
           <Router>
             <Switch>
               <Route exact path="/login">
-                <NormalLoginForm/>
+                <LoginPage/>
               </Route>
               <Route path="/">
                 {(!state.user.isLoggedIn)?
