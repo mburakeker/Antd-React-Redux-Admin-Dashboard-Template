@@ -1,5 +1,5 @@
 import axios from 'axios';
-import LocalStorageService from "./localStorage";
+import {LocalStorageService} from "./localStorage";
 
 const apiUrl = "http://localhost:5000/api/";
 const localStorageService = LocalStorageService.getService();
