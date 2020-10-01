@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {login} from '../../reducers/userSlice';
 import React, {Component} from 'react';
 import {Login} from '../../api/user';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
 class LoginPage extends Component {
     constructor(props){
@@ -15,25 +16,27 @@ class LoginPage extends Component {
     }
   onFinish = values => {
     console.log('Received values of form: ', values);
+    this.props.loginDispatch({username:values.username,token:'token'});
+    this.setState({ redirect: "/" });
+    // Login({username:username, password:password}).then((response)=>{
+        //     if(response.data){
+        //         this.props.loginDispatch(username,'token');
+        //     }
+        // });
   };
   onUsernameChange(e){
     const {value} = e.target;
     this.setState({username:value});
+    
   }
   onPasswordChange(e){
     const {value} = e.target;
     this.setState({password:value});
   }
-  submitLogin(){
-      const {username,password} = this.state;
-      this.props.loginDispatch(username,'token');
-        // Login({username:username, password:password}).then((response)=>{
-        //     if(response.data){
-        //         this.props.loginDispatch(username,'token');
-        //     }
-        // });
-  }
   render(){
+    if (this.state.redirect) {
+        return <Redirect to={this.state.redirect} />
+      }
     return (
         <div className="center">
             <Card bodyStyle={{padding:'80px'}}>
@@ -72,7 +75,7 @@ class LoginPage extends Component {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button onSubmit={this.submitLogin} type="primary" htmlType="submit" className="login-form-button">
+                    <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
                     </Button>
                     Or <a href="">register now!</a>
@@ -85,9 +88,8 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    loginDispatch: (username,token) => dispatch(login({username:username,token:token})),
-});
-  
+    loginDispatch: (obj) => dispatch(login(obj))
+  });
 export default connect(
     null,
     mapDispatchToProps,
